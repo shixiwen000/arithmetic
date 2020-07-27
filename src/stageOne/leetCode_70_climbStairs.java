@@ -2,7 +2,7 @@ package stageOne;
 
 public class leetCode_70_climbStairs {
     public static void main(String[] args) {
-    System.out.println(climbStairs(4));
+    System.out.println(climbStairs_1(4));
     }
     public static int climbStairs(int n){
         /*1.数学归纳法
@@ -34,6 +34,18 @@ public class leetCode_70_climbStairs {
             f3=f2+f1;
             f1=f2;
             f2=f3;
+        }
+        return f3;
+    }
+
+    public static int climbStairs_1(int n) {
+
+        if(n <= 2) return n;
+        int f1 = 1,f2 = 2 ,f3 = 3;
+        for(int i = 3; i <= n; i++) {
+            f3 = f2 + f1;
+            f1 = f2;
+            f2 = f3;
         }
         return f3;
     }

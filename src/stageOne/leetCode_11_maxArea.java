@@ -2,35 +2,6 @@
 package stageOne;
 
 
-import java.util.Map;
-
-/*
-O(n^2)
-public class leetCode_11_maxArea {
-    public static void main(String[] args) {
-        int[] height={1,3,11,7,5,3,1,6,7,12,10};
-        System.out.println(_maxArea(height));
-    }
-    public static int _maxArea(int[] height) {
-        int max=0;
-        for(int i=0;i<height.length;i++){
-            for(int j=i+1;j<height.length;j++){
-                int area=(j-i)*getMinHeight(height[i],height[j]);
-                max=getMaxArea(area,max);
-            }
-        }
-        return max;
-    }
-
-    private static int getMaxArea(int area, int max) {
-        return area>max? area:max;
-    }
-
-    private static int getMinHeight(int i, int i1) {
-        return i<i1?i:i1;
-    }
-}
-*/
 public class leetCode_11_maxArea {
     public static void main(String[] args) {
         int[] height={1,8,6,2,5,4,8,3,7};

@@ -10,55 +10,71 @@ import java.util.*;
 
 public class leetCode_15_threeSum {
     public static void main(String[] args) {
-        int[] num={1,2,-3,4,5,-9,3,7};
-        Iterator<List<Integer>> it=threeSum(num).iterator();
+        int[] num={1,2,2,-3,4,5,-9,3,7};
+        Iterator<List<Integer>> it=threeSum_1(num).iterator();
         while(it.hasNext()){
             System.out.println(it.next());
         }
     }
-    public static List<List<Integer>> threeSum(int[] nums) {
-        List<List<Integer>> list=new ArrayList<>();
-        Arrays.sort(nums);
-        for(int k=0;k<nums.length-2;k++){
-            if(k>0&&nums[k]==nums[k-1]) {
-                continue;
-            }
-            for(int i=k+1,j=nums.length-1;i<j;){
-                if(nums[k]+nums[i]+nums[j]==0){
-                    list.add(Arrays.asList(nums[k],nums[i++],nums[j--]));
-                    while(i<j&&nums[i]==nums[i-1]){i++;}
-                    while(i<j&&nums[j]==nums[j+1]){j--;}
-                }
+    //暴力求解  如何去重
+    public static Set<List<Integer>> threeSum_0(int[] nums) {
 
-                else if(nums[k]+nums[i]+nums[j]<0){
-                    i++;
-                }
-                else{
-                    j--;
-                }
-            }
-        }
-        return list;
-    }
-/*
-    public static List<List<Integer>> threeSum(int[] num){
-        Arrays.sort(num);
-        List<List<Integer>> list=new ArrayList<List<Integer>>();
-        System.out.println("c a b");
-        for(int i=0;i<num.length-2;i++){
-            for(int j=i+1;j<num.length-1;j++){
-                for(int k=j+1;k<num.length;k++){
-                    if(0==num[i]+num[j]+num[k]){
-                        List<Integer> arr=new ArrayList<Integer>();
-                        arr.add(num[i]);
-                        arr.add(num[j]);
-                        arr.add(num[k]);
-                        list.add(arr);
+        Set<List<Integer>> res = new HashSet<List<Integer>>();
+        for(int i =0;i < nums.length - 2; i++) {
+            for(int j = i + 1; j < nums.length - 1; j++) {
+                for(int k = j + 1; k < nums.length; k++) {
+                    if(nums[i] + nums[j] + nums[k] == 0) {
+                        List<Integer> arr = new ArrayList<Integer>();
+                        arr.add(nums[i]);
+                        arr.add(nums[j]);
+                        arr.add(nums[k]);
+                        res.add(arr);
                     }
                 }
             }
         }
-        return list;
+        return res;
     }
-*/
+
+    //排序+双指针
+    public static List<List<Integer>> threeSum_1(int[] nums) {
+
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(nums);
+        for(int k = 0; k < nums.length - 2; k++) {
+
+            if(k > 0 && nums[k] == nums[k - 1]) continue;
+
+            for(int i = k + 1, j = nums.length-1; i < j; ) {
+                if(nums[i] + nums[j] == -nums[k]) {
+                    res.add(Arrays.asList(nums[k],nums[i++],nums[j--]));
+                    while(i < j && nums[i] == nums[i - 1]){i++;}
+                    while(i < j && nums[j] == nums[j + 1]){j--;}
+                }
+                if(nums[i] + nums[j] < -nums[k]) i++;
+                if(nums[i] + nums[j] > -nums[k]) j--;
+            }
+        }
+        return res;
+    }
+
+    //哈希表
+    /*public static List<List<Integer>> threeSum_2(int[] nums) {
+
+        HashMap<Integer,List<Integer>> map = new HashMap<>();
+        List<List<Integer>> result = new ArrayList<>();
+
+        for(int i = 0; i < nums.length - 1) {
+            for(int j =i + 1; j < nums.length; j++) {
+                int sum = nums[i] + nums[j];
+                if(!map.containsKey(sum)) {
+                    map.put(sum,Arrays.asList(nums[i],nums[j]));
+                }
+                else {
+
+                }
+            }
+        }
+        return null;
+    }*/
 }
